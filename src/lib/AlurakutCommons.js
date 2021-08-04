@@ -39,7 +39,7 @@ export function AlurakutMenu({ githubUser }) {
             Sair
           </a>
           <div>
-            <input placeholder="Pesquisar no Orkut" />
+            <input placeholder="Pesquisar no Geekut" />
           </div>
         </nav>
 
@@ -93,7 +93,7 @@ AlurakutMenu.Wrapper = styled.header`
     }
   }
   .container {
-    background-color: #308BC5;
+    background-image: url("https://img.freepik.com/fotos-gratis/dark-gradient-blue-background_1258-1348.jpg?size=626&ext=jpg");
     padding: 7px 16px;
     max-width: 1110px;
     margin: auto;
@@ -122,7 +122,7 @@ AlurakutMenu.Wrapper = styled.header`
         font-size: 12px;
         color: white;
         padding: 10px 16px;
-        position: relative;
+        /* position: relative; */
         text-decoration: none;
         &:after {
           content: " ";
@@ -150,13 +150,13 @@ AlurakutMenu.Wrapper = styled.header`
       font-size: 12px;
       ::placeholder {
         color: #ffffff;
-        opacity: 1;
+        opacity: 0.5;
       }
     } 
   }
 `;
 AlurakutMenu.Logo = styled.img`
-  background-color: #ffffff;
+  background-color: #557AB4;
   padding: 9px 14px;
   border-radius: 1000px;
   height: 34px;
