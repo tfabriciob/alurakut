@@ -21,9 +21,9 @@ function ProfileSidebar(propriedades) {
 }
 
 export default function Home() {
-    const comunidades = React.useState('Alurakut');
     const usuarioAleatorio = 'tfabriciob';
-    // const comunidades = ['Alurakut'];
+    const [comunidades, setComunidades] = React.useState(['Geekut']);
+
     const pessoasFavoritas = [
         'rafaballerini',
         'felipefialho',
@@ -50,9 +50,17 @@ export default function Home() {
                         <h2 className="subTitle">O que deseja fazer hoje?</h2>
                         <form onSubmit={function hadleCriaComunidade(e) {
                             e.preventDefault(); //para de fazer o comportamento normal que seria o refresh
+                            const dadosDoForm = new FormData(e.target);
 
-                            comunidades.push('Alura Stars');
-                            console.log(comunidades);
+                            console.log('Campo: ', dadosDoForm.get('title'));
+                            console.log('Campo: ', dadosDoForm.get('image'));
+
+                            const comunidade = {
+                                title: dadosDoForm.get()
+                            }
+
+                            const comunidadesAtualizadas = [...comunidades, 'Geek Stars'];
+                            setComunidades(comunidadesAtualizadas)
 
                         }}>
                             <div>
