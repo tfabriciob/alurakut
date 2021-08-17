@@ -11,7 +11,10 @@ const GlobalStyle = createGlobalStyle`
     
     body {
         font-family: sans-serif;
-        background: #D9E6F6;
+        background-image: url("https://images3.alphacoders.com/104/1044087.jpg");
+        background-repeat: no-repeat;
+        background-position: top center;
+        background-size: cover;
     }
 
     #__next {
