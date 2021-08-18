@@ -12,11 +12,34 @@ function ProfileSidebar(propriedades) {
             
             <p>
                 <a className="boxLink" href={`https://www.linkedin.com/in/tfabriciob`}>
-                    @{propriedades.githubUser}
+                    {propriedades.githubUser}
                 </a><hr />
             </p>
             <AlurakutProfileSidebarMenuDefault />
         </Box>
+    )
+}
+
+function ProfileRelationsBox(propriedades) {
+    return (
+        <ProfileRelationsBoxWrapper>
+            <h2 className="smallTitle">
+                {propriedades.title} ({propriedades.items.length})
+                <hr />
+            </h2>
+            <ul>
+                {/* {seguidores.map((itemAtual) => {
+                    return (
+                        <li key={itemAtual}>
+                            <a href={`https://github.com/${itemAtual}.png`}>
+                                <img src={itemAtual.image} />
+                                <span>{itemAtual.title}</span>
+                            </a>
+                        </li>
+                    )
+                })} */}
+      </ul>
+        </ProfileRelationsBoxWrapper>
     )
 }
 
@@ -27,6 +50,9 @@ export default function Home() {
         title: 'Eu odeio acordar cedo',
         image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
     }]);
+    // const comunidades = comunidades[0];
+    // const alteradorDeComunidades/setComunidades = comunidades[1];
+    // const comunidades = ['Alurakut'];
     const pessoasFavoritas = [
         'rafaballerini',
         'felipefialho',
@@ -36,16 +62,33 @@ export default function Home() {
         'caiotomich'
     ]
 
+    const [seguidores, setSeguidores] = React.useState([]);
+    // 0 - Pegar o array de dados do github 
+    React.useEffect(function() {
+        fetch('https://api.github.com/users/tfabriciob/followers')
+        .then(function (respostaDoServidor) {
+            return respostaDoServidor.json();
+        })
+        .then(function(respostaCompleta) {
+            setSeguidores(respostaCompleta);
+        })
+    }, [])
+
+    console.log('seguidores antes do return', seguidores);
+
+    // 1 - Criar um box que vai ter um map, baseado nos items do array que pegamos do GitHub
+
     return (
         <>
             <AlurakutMenu />
             <MainGrid>
+                {/* <Box style="grid-area: profileArea;"> */}
                 <div className="profileArea" style={{ gridArea: 'profileArea' }}>
                     <ProfileSidebar githubUser={usuarioAleatorio} />
                 </div>
                 <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
                     <Box>
-                        <h1 className="title">Bem Vindo(a)<hr /></h1>
+                        <h1 className="title">Bem Vindo(a) Geek!<hr /></h1>
                         <OrkutNostalgicIconSet />
                     </Box>
 
@@ -89,40 +132,40 @@ export default function Home() {
                     </Box>
                 </div>
                 <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
+                    <ProfileRelationsBox title="Seguidores" items={seguidores} />
                     <ProfileRelationsBoxWrapper>
                         <h2 className="smallTitle">
-                            Pessoas da comunidade ({pessoasFavoritas.length})
-                            <hr />
+                        Comunidades ({comunidades.length})
                         </h2>
                         <ul>
-                            {pessoasFavoritas.map((itemAtual) => {
-                                return (
-                                    <li key={itemAtual}>
-                                        <a href={`/users/${itemAtual}`}>
-                                            <img src={`https://github.com/${itemAtual}.png`} />
-                                            <span>{itemAtual}</span>
-                                        </a>
-                                    </li>
-                                )
-                            })}
+                        {comunidades.map((itemAtual) => {
+                            return (
+                            <li key={itemAtual.id}>
+                                <a href={`/users/${itemAtual.title}`}>
+                                <img src={itemAtual.image} />
+                                <span>{itemAtual.title}</span>
+                                </a>
+                            </li>
+                            )
+                        })}
                         </ul>
                     </ProfileRelationsBoxWrapper>
                     <ProfileRelationsBoxWrapper>
-                    <h2 className="smallTitle">
-                            Comunidades ({comunidades.length})
-                            <hr />
+                        <h2 className="smallTitle">
+                        DEV's inspiradores ({pessoasFavoritas.length})
                         </h2>
+
                         <ul>
-                            {comunidades.map((itemAtual) => {
-                                return (
-                                    <li key={itemAtual.id}>
-                                        <a href={`/users/${itemAtual.title}`}>
-                                            <img src={itemAtual.image} />
-                                            <span>{itemAtual.title}</span>
-                                        </a>
-                                    </li>
-                                )
-                            })}
+                        {pessoasFavoritas.map((itemAtual) => {
+                            return (
+                            <li key={itemAtual}>
+                                <a href={`/users/${itemAtual}`}>
+                                <img src={`https://github.com/${itemAtual}.png`} />
+                                <span>{itemAtual}</span>
+                                </a>
+                            </li>
+                            )
+                        })}
                         </ul>
                     </ProfileRelationsBoxWrapper>
                 </div>
